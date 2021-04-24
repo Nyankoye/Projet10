@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import Project, Issue, Comment, Contributor
 
 
 class SerializerUser(serializers.ModelSerializer):
@@ -26,3 +27,9 @@ class SerializerUser(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+class SerializerProject(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['id','title','description','project_type','author_user_id']
+        depth = 1

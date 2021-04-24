@@ -8,10 +8,10 @@ class Project(models.Model):
     grâce à l'ORM de django"""
 
     TYPE_CHOICES = (
-        ('BE','Back-End'),
-        ('Fr','Front-End'),
+        ('Back-End','Back-End'),
+        ('Front-End','Front-End'),
         ('IOS','IOS'),
-        ('An','Android'),
+        ('Android','Android'),
     )
 
     title = models.CharField('Titre', max_length=128)
@@ -33,15 +33,15 @@ class Project(models.Model):
 
 class Contributor(models.Model):
     ROLE_CHOICES = (
-        ('A', 'Auteur'),
-        ('R', 'Responsable'),
-        ('C', 'Créateur'),
+        ('Auteur', 'Auteur'),
+        ('Responsable', 'Responsable'),
+        ('Créateur', 'Créateur'),
     )
     PERMISSION_CHOICES = (
-        ('C', 'Création'),
-        ('R', 'Lecture'),
-        ('U', 'Modification'),
-        ('D', 'Suppression'),
+        ('Création', 'Création'),
+        ('Lecture', 'Lecture'),
+        ('Modification', 'Modification'),
+        ('Suppression', 'Suppression'),
     )
 
     user_id = models.ForeignKey(
@@ -68,19 +68,19 @@ class Issue(models.Model):
     grâce à l'ORM de django"""
 
     PRIORITY_CHOICES = (
-        ('F', 'FAIBLE'),
-        ('M', 'MOYENNE'),
-        ('E', 'ÉLEVÉE'),
+        ('FAIBLE', 'FAIBLE'),
+        ('MOYENNE', 'MOYENNE'),
+        ('ÉLEVÉE', 'ÉLEVÉE'),
     )
     STATUS_CHOICES = (
-        ('AF','À faire'),
-        ('EC','En cours'),
-        ('T','Terminé'),
+        ('À faire','À faire'),
+        ('En cours','En cours'),
+        ('Terminé','Terminé'),
     )
     TAG_CHOICES = (
-        ('B','BUG'),
-        ('A','AMÉLIORATION'),
-        ('T','TÂCHE'),
+        ('BUG','BUG'),
+        ('AMÉLIORATION','AMÉLIORATION'),
+        ('TÂCHE','TÂCHE'),
     )
 
     title = models.CharField('Titre', max_length=128)
