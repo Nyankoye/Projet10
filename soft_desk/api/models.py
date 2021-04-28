@@ -10,6 +10,7 @@ class Project(models.Model):
     TYPE_CHOICES = (
         ('Back-End','Back-End'),
         ('Front-End','Front-End'),
+        ('Full-Stack','Full-Stack'),
         ('IOS','IOS'),
         ('Android','Android'),
     )
@@ -17,8 +18,9 @@ class Project(models.Model):
     title = models.CharField('Titre', max_length=128)
     description = models.TextField('Description', max_length=2048, blank=True)
     project_type = models.CharField('Type',max_length=100,choices=TYPE_CHOICES)
-    author_user_id = models.ManyToManyField(
+    author_user_id = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
         related_name='authors')
 
     def __str__(self):
@@ -37,12 +39,6 @@ class Contributor(models.Model):
         ('Responsable', 'Responsable'),
         ('Créateur', 'Créateur'),
     )
-    PERMISSION_CHOICES = (
-        ('Création', 'Création'),
-        ('Lecture', 'Lecture'),
-        ('Modification', 'Modification'),
-        ('Suppression', 'Suppression'),
-    )
 
     user_id = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
@@ -51,10 +47,10 @@ class Contributor(models.Model):
     
     project_id = models.ForeignKey(
         to=Project,
-        on_delete=models.CASCADE,)
+        on_delete=models.CASCADE,
+        related_name='project_contrib')
 
-    permission = models.CharField(max_length=100,choices=PERMISSION_CHOICES)
-    role = models.CharField(max_length=100,choices=ROLE_CHOICES)
+    role = models.CharField(max_length=100,choices=ROLE_CHOICES, null=True, blank=True)
 
     class Meta:
         """Cette classe permet permet de specifier certain comportement

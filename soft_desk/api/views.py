@@ -1,14 +1,25 @@
 from django.shortcuts import render, get_object_or_404
-from rest_framework.decorators import api_view
-from rest_framework import status
 from rest_framework.response import Response
-from .serialisers import SerializerUser, SerializerProject
-from .models import Project
+from rest_framework import viewsets, permissions
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view, action
+from .serialisers import (
+    SerializerUser, 
+    SerializerProject,
+    SerializerIssue,
+    SerializerContributor,
+    SerializerComment)
+from .permissions import IsOwnerOrReadOnly
+from .models import Project, Contributor, Issue, Comment
 from django.contrib.auth.models import User
-# Create your views here.
-@api_view(['POST'])
-def register(request):
-    if request.method == 'POST':
+
+
+class RegisterView(APIView):
+    """
+    List all snippets, or create a new snippet.
+    """
+    
+    def post(self, request, format=None):
         serializer = SerializerUser(data=request.data)
         data = {}
         if serializer.is_valid():
@@ -20,29 +31,35 @@ def register(request):
             data = serializer.errors
         return Response(data=data)
 
-@api_view(['GET','POST'])
-def projects_list(request):
-    if request.method == 'GET':
-        try:
-            projects = Project.objects.filter(author_user_id=request.user)
-        except Project.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serialiser = SerializerProject(projects, many=True)
-        return Response(serialiser.data)
-    
-    if request.method == 'POST':
-        data = request.data
-        project = Project.objects.create(title=data['title'],description=data['description'],\
-                        project_type=data['project_type'])
-        for user in data['author_user_id']:
-            user_object = User.objects.filter(username=user['username'])
-            project.author_user_id.add(user_object)
+class ProjectView(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = SerializerProject
+    permission_classes = (permissions.IsAuthenticated,IsOwnerOrReadOnly)
 
-        serialiser = SerializerProject(data=project)
-        if serialiser.is_valid():
-            serialiser.save()
-            return Response(serialiser.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        
+class ContibutorView(viewsets.ModelViewSet):
+    serializer_class = SerializerContributor
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Contributor.objects.filter(project_id=id)
+
+
+class IssueView(viewsets.ModelViewSet):
+    serializer_class = SerializerIssue
+    permission_classes = (permissions.IsAuthenticated,IsOwnerOrReadOnly,)
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Issue.objects.filter(project_id=id).order_by('-created_time')
+
+
+class CommentView(viewsets.ModelViewSet):
+    serializer_class = SerializerComment
+    permission_classes = (permissions.IsAuthenticated,IsOwnerOrReadOnly,)
+
+    def get_queryset(self):
+        issue_id = self.kwargs['issue_id']
+        return Comment.objects.filter(issue_id=issue_id).order_by('-created_time')

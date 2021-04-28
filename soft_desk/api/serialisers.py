@@ -28,8 +28,24 @@ class SerializerUser(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class SerializerProject(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['id','title','description','project_type','author_user_id']
-        depth = 1
+        fields = '__all__'
+
+
+class SerializerIssue(serializers.ModelSerializer):
+    class Meta:
+        model = Issue
+        fields = '__all__'
+
+class SerializerContributor(serializers.ModelSerializer):
+    class Meta:
+        model = Contributor
+        fields = '__all__'
+
+class SerializerComment(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
