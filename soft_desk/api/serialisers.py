@@ -32,7 +32,7 @@ class SerializerUser(serializers.ModelSerializer):
 class SerializerProject(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['id','title','description','author_user_id',]
 
 
 class SerializerIssue(serializers.ModelSerializer):
