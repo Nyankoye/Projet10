@@ -30,6 +30,7 @@ class SerializerUser(serializers.ModelSerializer):
 
 
 class SerializerProject(serializers.ModelSerializer):
+    author_user_id = SerializerUser()
     class Meta:
         model = Project
         fields = ['id','title','description','author_user_id',]

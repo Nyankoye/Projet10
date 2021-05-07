@@ -15,21 +15,16 @@ class IsProjectAuthorOrReadOnly(BasePermission):
             return True
         elif project.author_user_id == request.user:
             return True
-        else:
-            return False
+        return False
 
 class ContributorsOnly(BasePermission):
     def has_permission(self, request, view):
         id = request.resolver_match.kwargs.get('project_id')
         project = Project.objects.get(id=id)
-        contributors = project.project_contrib.all()
-        if project.author_user_id == request.user:
+        contributeur = Contributor.objects.get(project_id=project,user_id=request.user_id).exist()
+        if project.author_user_id == request.user or contributeur:
             return True
-        else:
-            for contributor in contributors:
-                if contributor.user_id == request.user:
-                    return True
-                return False
+        return False
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
