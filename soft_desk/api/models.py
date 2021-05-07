@@ -38,6 +38,7 @@ class Contributor(models.Model):
         ('Auteur', 'Auteur'),
         ('Responsable', 'Responsable'),
         ('Créateur', 'Créateur'),
+        ('Contributeur', 'Contributeur'),
     )
 
     user_id = models.ForeignKey(

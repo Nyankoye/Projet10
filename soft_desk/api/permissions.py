@@ -21,8 +21,8 @@ class ContributorsOnly(BasePermission):
     def has_permission(self, request, view):
         id = request.resolver_match.kwargs.get('project_id')
         project = Project.objects.get(id=id)
-        contributeur = Contributor.objects.get(project_id=project,user_id=request.user_id).exist()
-        if project.author_user_id == request.user or contributeur:
+        contributeur = Contributor.objects.filter(project_id=project,user_id=request.user)
+        if project.author_user_id == request.user or len(contributeur)!=0:
             return True
         return False
 
