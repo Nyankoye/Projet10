@@ -1,8 +1,10 @@
 # Projet10
 Création d'une API sécurisée RESTful en utilisant Django REST
-Réalisation d’une application web à l’aide de django permettant à une communauté d'utilisateurs de consulter ou de solliciter une critique de livres à la demande.
+L'API vous permettra de créer divers projets, d'ajouter des utilisateurs à des projets spécifiques, de créer des problèmes au sein des projets et d'attribuer des libellés à ces problèmes en fonction de leurs priorités, de balises, etc.
+
+
 # Documentatio API
-Veuillez trouver la documentation de l'api sur le lien suivant (API-REST)[https://documenter.getpostman.com/view/14846551/TzRRC8Wm]
+Veuillez trouver la documentation de l'api sur le lien suivant [API-REST](https://documenter.getpostman.com/view/14846551/TzRRC8Wm)
 # Execution du code
  1. Cloner ce dépôt de code à l'aide de la commande: $ git clone https://github.com/Nyankoye/Projet10.git 
  2. Créez un environnement virtuel dans le projet en utilisant la commande: python -m venv env
