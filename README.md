@@ -3,7 +3,7 @@ Création d'une API sécurisée RESTful en utilisant Django REST
 L'API vous permettra de créer divers projets, d'ajouter des utilisateurs à des projets spécifiques, de créer des problèmes au sein des projets et d'attribuer des libellés à ces problèmes en fonction de leurs priorités, de balises, etc.
 
 
-# Documentatio API
+# Documentation API
 Veuillez trouver la documentation de l'api sur le lien suivant [API-REST](https://documenter.getpostman.com/view/14846551/TzRRC8Wm)
 # Execution du code
  1. Cloner ce dépôt de code à l'aide de la commande: $ git clone https://github.com/Nyankoye/Projet10.git 
