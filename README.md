@@ -13,4 +13,4 @@ Veuillez trouver la documentation de l'api sur le lien suivant [API-REST](https:
  5. Déplacez-vous  dans le fichier soft_desk en utilisant la commande : cd soft_desk
  6. Charger le contenu de la base de données en utilisant la commande : python manage.py migrate
  7. Lancer le serveur en utilisant la commande : python manage.py runserver
- 8. Tapez cette adresse : http://127.0.0.1:8000/ dans votre navigateur pour commencer à utiliser la l'application web
+ 8. Vous pouvez maintenant utiliser l'API en suivant les intructions dans la [documentation](https://documenter.getpostman.com/view/14846551/TzRRC8Wm)
